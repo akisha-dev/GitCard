@@ -10,12 +10,25 @@ function App(){
 
 let response=await fetch(`https://api.github.com/users/${username}`);
 let stats = await response.json();
-console.log(stats);
+
 setUserInfo(stats);
 
-
-
   }
+   async function getLanguage(repos){
+    let response1 = await fetch(`https://api.github.com/users/${username}/repos`);
+
+repos =await response1.json();
+  let counts = {};
+  repos.forEach(element => {
+    if(element.language){
+      counts[element.language] = (counts[element.language] || 0) + 1
+    }
+    
+  });
+  console.log(counts);
+}
+
+  
 
   let[username,setUsername]=useState('');
   
@@ -30,6 +43,7 @@ onChange={(event) => {
 <button onClick={()=>{
   console.log(username)
   getInfo();
+  getLanguage();
 }}>Search</button>
 
 
@@ -51,7 +65,7 @@ onChange={(event) => {
   {!userInfo.public_repos?null:<p><a 
   href={`https://github.com/${userInfo.login}?tab=repositories`}>
   {userInfo.public_repos}</a></p>}
-  
+
 </div></div> )}
 </>
 )
