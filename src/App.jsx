@@ -23,14 +23,17 @@ repos =await response1.json();
     if(element.language){
       counts[element.language] = (counts[element.language] || 0) + 1
     }
+
     
   });
-  console.log(counts);
+  setLanguage(counts);
+  
 }
 
   
 
   let[username,setUsername]=useState('');
+  let[language,setLanguage] = useState({});
   
   return(
   <>
@@ -65,6 +68,9 @@ onChange={(event) => {
   {!userInfo.public_repos?null:<p><a 
   href={`https://github.com/${userInfo.login}?tab=repositories`}>
   {userInfo.public_repos}</a></p>}
+  {Object.keys(language).slice(0,4).map(lang => (
+    <p key ={lang}>{lang} : {language[lang]}</p>
+  ))}
 
 </div></div> )}
 </>
