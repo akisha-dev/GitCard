@@ -28,6 +28,10 @@ repos =await response1.json();
     
   });
   setLanguage(counts);
+ let recentWork = repos.sort((a,b)=>
+  b.stargazers_count-a.stargazers_count
+ ).slice(0,3);
+ SetRecentWork(recentWork);
   
 }
 
@@ -35,6 +39,7 @@ repos =await response1.json();
 
   let[username,setUsername]=useState('');
   let[language,setLanguage] = useState({});
+  let[recentWork,SetRecentWork]=useState('');
   
   return(
   <>
@@ -96,16 +101,21 @@ bg-cyan-500
 </div>
 
   { userInfo && (
-  <div className='container-card'>
-  <div className='social'>
- {!userInfo.email?null:<p>{userInfo.email}</p>}
-  {!userInfo.blog?null:<p>{userInfo.blog}</p>}
-  {!userInfo.twitter_username?null:<p>{userInfo.twitter_username}</p>}
-  </div>
+  <div className='container-card
+  mt-[30px]
+  bg-white
+  border-[2px]
+  border-black'>
+  
   <div className='bio'>
   <img src ={userInfo.avatar_url} />
   <p>{userInfo.name}</p>
+   {!userInfo.email?null:<p>{userInfo.email}</p>}
  {!userInfo.bio?null:<p>{userInfo.bio}</p>}
+  </div>
+  <div className='social'>
+  {!userInfo.blog?null:<p>{userInfo.blog}</p>}
+  {!userInfo.twitter_username?null:<p>{userInfo.twitter_username}</p>}
   </div>
   <div className='github-info'>
  {!userInfo.location?null:<p>{userInfo.location}</p>}
