@@ -29,9 +29,9 @@ repos =await response1.json();
   });
   setLanguage(counts);
  let recentWork = repos.sort((a,b)=>
-  b.stargazers_count-a.stargazers_count
+ new Date(b.updated_at)- new Date(a.updated_at)
  ).slice(0,3);
- SetRecentWork(recentWork);
+ setRecentWork(recentWork);
   
 }
 
@@ -39,7 +39,7 @@ repos =await response1.json();
 
   let[username,setUsername]=useState('');
   let[language,setLanguage] = useState({});
-  let[recentWork,SetRecentWork]=useState('');
+  let[recentWork,setRecentWork]=useState([]);
   
   return(
   <>
@@ -128,6 +128,8 @@ bg-cyan-500
       'C++':'cplusplus',
       'C#':'csharp',
       'Jupyter Notebook':'jupyter',
+        'HTML': 'html5',
+       'CSS': 'css3',
     }
     const iconName = languageMap[lang]|| lang.toLowerCase();
     return(
@@ -139,10 +141,28 @@ bg-cyan-500
          onError={(e) => e.target.style.display = 'none'}
       />
       <p>{lang}</p>
+    
     </div>
-  )
+      )
 })}
-</div></div> )}
+    <div className='repos'>
+  {recentWork.map(repo =>(
+    <div key ={repo.id}
+    >
+      <a href ={repo.html_url}>{repo.name}</a>
+      <p>{repo.description}</p>
+      <p>⭐ {repo.stargazers_count}</p>
+      {repo.homepage && <a href={repo.homepage}
+      target="_blank" 
+      rel="noreferrer">
+        Live</a>}
+    </div>
+      ))}
+  
+</div>
+</div> 
+</div>
+)}
 </>
 )
 }
