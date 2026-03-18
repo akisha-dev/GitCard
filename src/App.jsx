@@ -1,5 +1,7 @@
 import bgImage from "./assets/github.svg";
 import {useState} from 'react';
+import xIcon from "./assets/twitter-x.svg"
+import linkIcon from "./assets/link.svg";
 
 function App(){
   let [userInfo,setUserInfo]=useState(null);
@@ -11,6 +13,11 @@ function App(){
 
 let response=await fetch(`https://api.github.com/users/${username}`);
 let stats = await response.json();
+console.log(stats);
+if(!response.ok){
+  alert('User not found!');
+  return;
+}
 
 setUserInfo(stats);
 
@@ -102,27 +109,83 @@ bg-cyan-500
 
   { userInfo && (
   <div className='container-card
-  mt-[30px]
+  grid
+  grid-cols-2
+  gap-4
+  m-[30px]
+  pl-[15px]
+  pr-[10px]
+  pb-[15px]
+  pt-[15px]
   bg-white
   border-[2px]
   border-black'>
-  
+  <div className='grid1
+  mt-8
+  flex
+  align-center
+  justify-center 
+  text-md
+  border-1
+  p-8
+'>
   <div className='bio'>
-  <img src ={userInfo.avatar_url} />
-  <p>{userInfo.name}</p>
+  <img 
+  className='h-[250px]
+  w-[240px]
+  mb-[8px]
+  rounded-[120px]
+  ' 
+  src ={userInfo.avatar_url} />
+  <p
+  className="
+  text-center
+  text-xl">{userInfo.name}</p>
+  {!userInfo.bio?null:<p>{userInfo.bio}</p>}
    {!userInfo.email?null:<p>{userInfo.email}</p>}
- {!userInfo.bio?null:<p>{userInfo.bio}</p>}
-  </div>
+ 
+  
   <div className='social'>
-  {!userInfo.blog?null:<p>{userInfo.blog}</p>}
-  {!userInfo.twitter_username?null:<p>{userInfo.twitter_username}</p>}
-  </div>
+  {!userInfo.blog?null:<p>blog:{userInfo.blog}</p>}
+  {!userInfo.twitter_username?null:
+   <div className="flex items-center gap-2">
+  <img
+  className="
+  h-[15px]
+  w-[15px]
+  " src={xIcon}></img>
+  <p> : {userInfo.twitter_username}</p>
+  </div>}
+  </div></div></div>
+  <div className='grid2
+    mt-8
+  flex
+  align-center
+  justify-center 
+  text-md
+  border-1
+  p-8
+  '>
+
+
   <div className='github-info'>
  {!userInfo.location?null:<p>{userInfo.location}</p>}
+
   {!userInfo.company?null:<p>{userInfo.company}</p>}
-  {!userInfo.public_repos?null:<p><a 
-  href={`https://github.com/${userInfo.login}?tab=repositories`}>
-  {userInfo.public_repos}</a></p>}
+
+  {!userInfo.public_repos?null:
+  <div className="repos
+  flex 
+  items-center
+  gap-2">
+   Public Repos : {userInfo.public_repos} 
+  <a href={`https://github.com/${userInfo.login}?tab=repositories`}>
+   <img 
+  className="
+  h-[20px]
+  w-[20px]" 
+  src={linkIcon}></img>
+  </a></div>}
   {Object.keys(language).slice(0,4).map(lang =>{
     const languageMap = {
       'C++':'cplusplus',
@@ -161,6 +224,8 @@ bg-cyan-500
   
 </div>
 </div> 
+</div>
+
 </div>
 )}
 </>
