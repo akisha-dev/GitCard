@@ -109,6 +109,7 @@ bg-cyan-500
 
   { userInfo && (
   <div className='container-card
+  max-w-2xl mx-auto
   grid
   grid-cols-2
   gap-4
@@ -117,16 +118,16 @@ bg-cyan-500
   pr-[10px]
   pb-[15px]
   pt-[15px]
-  bg-white
   border-[2px]
-  border-black'>
+  bg-gray-900 
+   border-gray-700'>
   <div className='grid1
   mt-8
   flex
   align-center
   justify-center 
   text-md
-  border-1
+pr-6
   p-8
 '>
   <div className='bio'>
@@ -140,17 +141,40 @@ bg-cyan-500
   <p
   className="
   text-center
-  text-xl">{userInfo.name}</p>
-  {!userInfo.bio?null:<p>{userInfo.bio}</p>}
-   {!userInfo.email?null:<p>{userInfo.email}</p>}
+  text-xl
+  text-white">{userInfo.name}</p>
+  {!userInfo.bio?null:<p
+  className="
+  text-center
+  text-gray-300
+"
+  >{userInfo.bio}</p>}
+
  
   
-  <div className='social'>
-  {!userInfo.blog?null:<p>blog:{userInfo.blog}</p>}
+  <div className='social
+    
+  text-center
+  text-gray-300
+"'>
+     {!userInfo.email?null:<p>{userInfo.email}</p>}
+  {!userInfo.blog?null:
+  <div className="flex gap-3 items-center"><span className="text-gray-400">blog:</span>
+    <a href={userInfo.blog} 
+    target="_blank"
+    rel="noreferrer">
+      <img
+      src={linkIcon}
+      className='
+      h-[20px]
+      w-[20px]
+      invert'></img>
+    </a></div>}
   {!userInfo.twitter_username?null:
    <div className="flex items-center gap-2">
   <img
   className="
+invert
   h-[15px]
   w-[15px]
   " src={xIcon}></img>
@@ -163,43 +187,51 @@ bg-cyan-500
   align-center
   justify-center 
   text-md
-  border-1
+ border-l
+  border-gray-700 
+  pl-6
   p-8
   '>
 
 
-  <div className='github-info'>
+  <div className='github-info
+  '>
   <div className="github
   flex
   gap-2
   items-center
+  text-gray-400
   ">
     github link :
     <a href={userInfo.html_url}
     target="_blank" rel="noreferrer"><img
     src={bgImage} width="20px"
-    height='15px'></img></a>
+    height='20px'
+    className="invert"></img></a>
   </div>
+  <div className="text-gray-300">
  {!userInfo.location?null:<p>{userInfo.location}</p>}
 
   {!userInfo.company?null:<p>{userInfo.company}</p>}
-
+</div>
   {!userInfo.public_repos?null:
   <div className="repos
   flex 
   items-center
-  gap-2">
-   Public Repos : {userInfo.public_repos} 
+  gap-2
+  text-cyan-400">
+  <span className="text-gray-400"> Public Repos </span>: {userInfo.public_repos} 
   <a href={`https://github.com/${userInfo.login}?tab=repositories`}
   target="_blank"
   rel="noreferrer">
    <img 
   className="
   h-[20px]
-  w-[20px]" 
+  w-[20px]
+  invert" 
   src={linkIcon}></img>
   </a></div>}
-   <p>Languages used:</p>
+   <p className="text-gray-400">Languages used:</p>
   {Object.keys(language).slice(0,4).map(lang =>{
     const languageMap = {
       'C++':'cplusplus',
@@ -215,7 +247,8 @@ bg-cyan-500
        className='
        flex
        items-center
-       gap-2'
+       gap-2
+       text-gray-200'
         key={lang}>
       <img 
         src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconName}/${iconName}-original.svg`}
@@ -230,7 +263,7 @@ bg-cyan-500
       )
 
 })}
-  <p>Recent works :</p>
+<p className="  text-gray-500 mb-2">Recent Works</p>
     <div className='repos
   '>
   {recentWork.map(repo =>(
@@ -240,23 +273,32 @@ bg-cyan-500
     flex-col
     border
     gap-2
-    p-[10px]"
+    p-[10px]
+   "
     key ={repo.id}
-    ><div
-    className="flex
+    >
+    <div className="border
+     border-gray-700 
+     rounded-lg
+      p-3
+       mb-2
+    flex
     gap-3
-    items-center">{repo.name}
+    items-center
+     text-white">{repo.name}
       <a href ={repo.html_url}
       target="_blank" 
       rel="noreferrer">
-        <img src={linkIcon}></img></a></div>
-      <p>{repo.description}</p>
-      <p>⭐ {repo.stargazers_count}</p>
+        <img src={linkIcon}
+        className="
+        invert"></img></a></div>
+      <p className="text-gray-400">{repo.description}</p>
+      <p className="text-cyan-400">⭐ {repo.stargazers_count}</p>
       {repo.homepage && <a href={repo.homepage}
       target="_blank" 
       rel="noreferrer">
-        <span className="text-blue-600
-        underline ">Live Link</span></a>}
+        <span className="text-cyan-400 hover:text-cyan-300 
+        underline">Live Link</span></a>}
     </div>
       ))}
   
