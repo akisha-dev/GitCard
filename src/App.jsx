@@ -169,6 +169,17 @@ bg-cyan-500
 
 
   <div className='github-info'>
+  <div className="github
+  flex
+  gap-2
+  items-center
+  ">
+    github link :
+    <a href={userInfo.html_url}
+    target="_blank" rel="noreferrer"><img
+    src={bgImage} width="20px"
+    height='15px'></img></a>
+  </div>
  {!userInfo.location?null:<p>{userInfo.location}</p>}
 
   {!userInfo.company?null:<p>{userInfo.company}</p>}
@@ -179,13 +190,16 @@ bg-cyan-500
   items-center
   gap-2">
    Public Repos : {userInfo.public_repos} 
-  <a href={`https://github.com/${userInfo.login}?tab=repositories`}>
+  <a href={`https://github.com/${userInfo.login}?tab=repositories`}
+  target="_blank"
+  rel="noreferrer">
    <img 
   className="
   h-[20px]
   w-[20px]" 
   src={linkIcon}></img>
   </a></div>}
+   <p>Languages used:</p>
   {Object.keys(language).slice(0,4).map(lang =>{
     const languageMap = {
       'C++':'cplusplus',
@@ -194,31 +208,55 @@ bg-cyan-500
         'HTML': 'html5',
        'CSS': 'css3',
     }
+   
     const iconName = languageMap[lang]|| lang.toLowerCase();
     return(
-       <div key={lang}>
+       <div
+       className='
+       flex
+       items-center
+       gap-2'
+        key={lang}>
       <img 
         src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconName}/${iconName}-original.svg`}
         alt={lang}
-        width="30"
+        width="20px"
+        height="20px"
          onError={(e) => e.target.style.display = 'none'}
       />
       <p>{lang}</p>
     
     </div>
       )
+
 })}
-    <div className='repos'>
+  <p>Recent works :</p>
+    <div className='repos
+  '>
   {recentWork.map(repo =>(
-    <div key ={repo.id}
-    >
-      <a href ={repo.html_url}>{repo.name}</a>
+    <div 
+    className="
+    flex
+    flex-col
+    border
+    gap-2
+    p-[10px]"
+    key ={repo.id}
+    ><div
+    className="flex
+    gap-3
+    items-center">{repo.name}
+      <a href ={repo.html_url}
+      target="_blank" 
+      rel="noreferrer">
+        <img src={linkIcon}></img></a></div>
       <p>{repo.description}</p>
       <p>⭐ {repo.stargazers_count}</p>
       {repo.homepage && <a href={repo.homepage}
       target="_blank" 
       rel="noreferrer">
-        Live</a>}
+        <span className="text-blue-600
+        underline ">Live Link</span></a>}
     </div>
       ))}
   
