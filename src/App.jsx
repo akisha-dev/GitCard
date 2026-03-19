@@ -2,6 +2,8 @@ import bgImage from "./assets/github.svg";
 import {useState} from 'react';
 import xIcon from "./assets/twitter-x.svg"
 import linkIcon from "./assets/link.svg";
+import mail from "./assets/envelope.svg";
+import map from "./assets/map.svg"
 
 function App(){
   let [userInfo,setUserInfo]=useState(null);
@@ -109,10 +111,12 @@ bg-cyan-500
 
   { userInfo && (
   <div className='container-card
+  
   max-w-2xl mx-auto
   grid
   grid-cols-2
   gap-4
+  items-start
   m-[30px]
   pl-[15px]
   pr-[10px]
@@ -127,15 +131,16 @@ bg-cyan-500
   align-center
   justify-center 
   text-md
+  
 pr-6
   p-8
 '>
-  <div className='bio'>
+  <div className='bio space-y-4'>
   <img 
-  className='h-[250px]
-  w-[240px]
-  mb-[8px]
-  rounded-[120px]
+  className=' h-[180px] 
+  w-[180px] 
+  rounded-full
+  shadow-[0_0_20px_rgba(0,200,255,0.3)]
   ' 
   src ={userInfo.avatar_url} />
   <p
@@ -153,13 +158,32 @@ pr-6
  
   
   <div className='social
-    
+   space-y-4  
   text-center
   text-gray-300
 "'>
-     {!userInfo.email?null:<p>{userInfo.email}</p>}
+  {!userInfo.location?null:<div className="flex items-center gap-2">
+  <img
+  className="
+  invert
+  h-[25px]
+  w-[20px]
+  " src={map}></img>
+  <p>{userInfo.location}</p>
+  </div>}
+
+  {!userInfo.company?null:<p>company : {userInfo.company}</p>}
+     {!userInfo.email?null:<div className="flex items-center gap-2">
+  <img
+  className="
+  invert
+  h-[25px]
+  w-[20px]
+  " src={mail}></img>
+  <p> : {userInfo.email}</p>
+  </div>}
   {!userInfo.blog?null:
-  <div className="flex gap-3 items-center"><span className="text-gray-400">blog:</span>
+  <div className="flex gap-3 items-center "><span className="text-gray-400">blog:</span>
     <a href={userInfo.blog} 
     target="_blank"
     rel="noreferrer">
@@ -182,6 +206,7 @@ invert
   </div>}
   </div></div></div>
   <div className='grid2
+  
     mt-8
   flex
   align-center
@@ -195,6 +220,7 @@ invert
 
 
   <div className='github-info
+  space-y-2 
   '>
   <div className="github
   flex
@@ -210,9 +236,7 @@ invert
     className="invert"></img></a>
   </div>
   <div className="text-gray-300">
- {!userInfo.location?null:<p>{userInfo.location}</p>}
-
-  {!userInfo.company?null:<p>{userInfo.company}</p>}
+ 
 </div>
   {!userInfo.public_repos?null:
   <div className="repos
