@@ -1,9 +1,9 @@
 import bgImage from "./assets/github.svg";
 import {useState} from 'react';
-import xIcon from "./assets/twitter-x.svg"
-import linkIcon from "./assets/link.svg";
-import mail from "./assets/envelope.svg";
-import map from "./assets/map.svg"
+// import xIcon from "./assets/twitter-x.svg"
+// import linkIcon from "./assets/link.svg";
+// import mail from "./assets/envelope.svg";
+// import map from "./assets/map.svg"
 
 function App(){
   let [userInfo,setUserInfo]=useState(null);
@@ -138,9 +138,33 @@ bg-cyan-500
     {
     !userInfo.html_url?null:<p>{userInfo.html_url}</p>
   }
-  </div>}
+ <div>Languages used:{
+  Object.keys(language).slice(0,3).map((lang)=>{
+  const LanguageMap ={
+    'C++':'cplusplus',
+    'Jupyter Notebook':'jupyter',
+     'HTML':'html5',
+     'CSS':'css3',
+  }
+  const IconName = LanguageMap[lang] ||lang.toLowerCase();
+ return(
+ <div key={lang}>
+    <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${IconName}/${IconName}-original.svg`
+    }width="20px"
+     height="20px"
+     onError={(e) => e.target.style.display='none'}></img>
+     <p>{lang}</p>
+  </div>
 
-</>
- )}
+  )
+  
 
- export default App 
+
+})
+
+ }</div> </div>
+}
+ 
+  </>
+  )}
+  export default App
