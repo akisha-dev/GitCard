@@ -1,9 +1,9 @@
 import bgImage from "./assets/github.svg";
 import {useState} from 'react';
-// import xIcon from "./assets/twitter-x.svg"
-// import linkIcon from "./assets/link.svg";
-// import mail from "./assets/envelope.svg";
-// import map from "./assets/map.svg"
+import xIcon from "./assets/twitter-x.svg"
+import linkIcon from "./assets/link.svg";
+import mail from "./assets/envelope.svg";
+import map from "./assets/map.svg"
 
 function App(){
   let [userInfo,setUserInfo]=useState(null);
@@ -28,6 +28,7 @@ setUserInfo(stats);
     let response1 = await fetch(`https://api.github.com/users/${username}/repos`);
 
 repos =await response1.json();
+console.log(repos);
   let counts = {};
   repos.forEach(element => {
     if(element.language){
@@ -162,7 +163,32 @@ bg-cyan-500
 
 })
 
- }</div> </div>
+ }</div>
+
+  <p>Recent works:</p>
+   {recentWork.map((repo)=>{
+    return(
+      <div key={repo.id}>
+       <div> <p>{repo.name}</p>
+        <img src ={linkIcon}
+        height="20px"
+        width="20px">
+        </img></div>
+
+        <p>{repo.description}</p>
+        <p>forks:{!repo.fork?null:repo.forks}</p>
+        <p>⭐{repo.stargazers_count}</p>
+      
+      </div>
+    )
+   })
+
+   }
+
+  
+ 
+ 
+  </div>
 }
  
   </>
