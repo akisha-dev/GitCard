@@ -52,7 +52,7 @@ console.log(repos);
   let[recentWork,setRecentWork]=useState([]);
   
   return(
-  <>
+  <div className="min-h-screen pb-16">
   <div className='upper h-64 border-[2px]  relative'  style={{background: 'linear-gradient(135deg, #0f172a 0%, #0e7490 50%, #0f172a 100%)'}}>
 
       <img  className='h-64  w-full z-0' src={bgImage}></img>
@@ -117,13 +117,15 @@ bg-cyan-500
   rounded-xl
   overflow-hidden
   border
-  border-gray-700">
+  border-gray-700
+  ">
 
   <div className='grid1 
   grid
   grid-cols-2
   '>
     <div className="sub1
+    border-r border-gray-700 
     
   bg-gradient-to-r from-[#bdc3c7] to-[#2c3e50] 
 flex 
@@ -246,7 +248,8 @@ className="
    gap-2
    text-gray-400">
    Repos :<span className="text-cyan-400"> {userInfo.public_repos}
-   </span> <a href={userInfo.repos_url}
+   </span> <a href={`https://github.com/${userInfo.login}?tab=repositories`}
+
     target="_blank"
     rel="noreferrer">
     <img
@@ -310,7 +313,8 @@ className="
  </div>
  </div>
  <div className="
- 
+bg-gray-900 p-6 border-t border-gray-700
+
  bg-gray-900
  p-6">
   <p className="text-gray-400
@@ -319,7 +323,7 @@ className="
    {recentWork.map((repo)=>{
     return(
       <div key={repo.id}
-      className="linear-gradient(135deg, #0a0e1a 0%, #0d1628 50%, #080c18 100%)"
+      className="bg-gray-800 rounded-lg mb-3"
       >
        <div
       className="p-4
@@ -343,7 +347,7 @@ className="
         width="20px"
         className="invert">
         </img></a></div>
-        {repo.description?null:<p className="text-gray-400">{repo.description}</p>}
+        {!repo.description?null:<p className="text-gray-400">{repo.description}</p>}
         <div className="text-gray-400"> forks : <span className="text-cyan-400">{repo.forks}</span></div>
         <div>⭐ <span className="text-cyan-400">{repo.stargazers_count}</span></div>
        {repo.homepage && <a href={repo.homepage}
@@ -368,6 +372,6 @@ className="
   </div>
 }
  
-  </>
+  </div>
   )}
   export default App
