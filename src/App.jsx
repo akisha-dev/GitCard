@@ -111,7 +111,25 @@ bg-cyan-500
 </div>
 
 {userInfo &&
-<div className="container-card">
+<div className="container-card
+text-white
+grid
+grid-rows-2
+max-w-2xl
+mx-auto
+border-2
+ border-gray-700
+bg-gray-900
+ m-[30px]
+  pl-[15px]
+  pr-[10px]
+  pb-[15px]
+  pt-[15px]
+ ">
+  <div className='grid1 
+  grid
+  grid-cols-2'>
+    <div className="sub1">
   {!userInfo.avatar_url? null :
   <img src={userInfo.avatar_url}></img>}
   {
@@ -120,25 +138,81 @@ bg-cyan-500
   {
     !userInfo.bio?null:<p>{userInfo.bio}</p>
   }
+  <div
+   className="
+   flex
+   gap-2">
+    github link :
+    <a href={userInfo.html_url}>
+    <img
+    src={bgImage}
+    width='20px'
+    height='20px'
+    className="
+    invert"></img>
+    </a>
+  </div>
+ 
+<div
+className="
+   flex
+   gap-2">
+  <img src={xIcon}
+  width=' 15px'
+  height='20px'
+  className="
+    invert"
+  ></img>: {userInfo.twitter_username} 
+</div>
+ 
+ <div
+   className="
+   flex
+   gap-2">
+    blogs :
+    <a href={userInfo.blog}
+    target="_blank"
+    rel="noreferrer">
+    <img
+    src={linkIcon}
+    width='20px'
+    height='20px'
+    className="
+    invert"></img>
+    </a>
+  </div>
+ 
+
+  </div>
+  <div className="sub2">
+    {
+    !userInfo.email?null:<p>{userInfo.email}</p>
+  }
     {
     !userInfo.location?null:<p>{userInfo.location}</p>
   }
     {
     !userInfo.company?null:<p>{userInfo.company}</p>
   }
-
-    {
-    !userInfo.email?null:<p>{userInfo.email}</p>
-  }
-    {
-    !userInfo.twitter_username?null:<p>{userInfo.twitter_username}</p>
-  }
-    {
-    !userInfo.blog?null:<p>{userInfo.blog}</p>
-  }
-    {
-    !userInfo.html_url?null:<p>{userInfo.html_url}</p>
-  }
+ {!userInfo.public_repos? null:
+<div
+   className="
+   flex
+   gap-2">
+   Repos : {userInfo.public_repos}
+    <a href={userInfo.repos_url}
+    target="_blank"
+    rel="noreferrer">
+    <img
+    src={linkIcon}
+    width='20px'
+    height='20px'
+    className="
+    invert"></img>
+    </a>
+  </div>
+}
+  
  <div>Languages used:{
   Object.keys(language).slice(0,3).map((lang)=>{
   const LanguageMap ={
@@ -149,7 +223,13 @@ bg-cyan-500
   }
   const IconName = LanguageMap[lang] ||lang.toLowerCase();
  return(
- <div key={lang}>
+ <div
+  key={lang}
+  className="
+  flex
+  flex-row
+  gap-4
+  space-y-3">
     <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${IconName}/${IconName}-original.svg`
     }width="20px"
      height="20px"
@@ -163,27 +243,45 @@ bg-cyan-500
 
 })
 
- }</div>
 
+ }
+ </div>
+ </div>
+ </div>
+ <div className="grid-2">
   <p>Recent works:</p>
    {recentWork.map((repo)=>{
     return(
       <div key={repo.id}>
-       <div> <p>{repo.name}</p>
+       <div
+      className="
+      flex
+      gap-3
+      space-y-3"
+       > <p>{repo.name}</p>
+       <a href={repo.html_url}
+       target="_blank"
+       rel="noreferrer">
         <img src ={linkIcon}
         height="20px"
-        width="20px">
-        </img></div>
-
+        width="20px"
+        className="invert">
+        </img></a></div>
         <p>{repo.description}</p>
-        <p>forks:{!repo.fork?null:repo.forks}</p>
+        <p>forks:{repo.forks}</p>
         <p>⭐{repo.stargazers_count}</p>
+        <a href={repo.homepage}><span
+        className="text-cyan-400 hover:text-cyan-300 
+        underline">
+          Live link</span></a>
       
       </div>
     )
    })
 
    }
+   </div>
+
 
   
  
