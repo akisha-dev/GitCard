@@ -111,64 +111,79 @@ bg-cyan-500
 </div>
 
 {userInfo &&
-<div className="container-card
-text-white
-grid
-grid-rows-2
-max-w-2xl
-mx-auto
-border-2
- border-gray-700
-bg-gray-900
- m-[30px]
-  pl-[15px]
-  pr-[10px]
-  pb-[15px]
-  pt-[15px]
- ">
+  <div className="max-w-2xl
+   mx-auto
+   mt-8
+  rounded-xl
+  overflow-hidden
+  border
+  border-gray-700">
+
   <div className='grid1 
   grid
-  grid-cols-2'>
-    <div className="sub1">
+  grid-cols-2
+  '>
+    <div className="sub1
+    
+  bg-gradient-to-r from-[#bdc3c7] to-[#2c3e50] 
+flex 
+flex-col
+ items-center
+  p-6
+  space-y-2">
   {!userInfo.avatar_url? null :
-  <img src={userInfo.avatar_url}></img>}
+  <img 
+   className=' h-[180px] 
+   mb-8
+  w-[180px] 
+  rounded-full
+  shadow-[0_0_20px_rgba(0,200,255,0.3)]
+  ' src={userInfo.avatar_url}></img>}
   {
-    !userInfo.name?null:<p>{userInfo.name}</p>
+    !userInfo.name?null:<p 
+    className="text-white">{userInfo.name}</p>
   }
   {
-    !userInfo.bio?null:<p>{userInfo.bio}</p>
+    !userInfo.bio?null:<p className="text-gray-300
+    text-center">{userInfo.bio}</p>
   }
   <div
    className="
    flex
-   gap-2">
+   gap-2
+   text-gray-300
+   ">
     github link :
     <a href={userInfo.html_url}>
     <img
     src={bgImage}
     width='20px'
     height='20px'
-    className="
-    invert"></img>
+    className="invert
+    "></img>
     </a>
   </div>
  
+ {!userInfo.twitter_username?null: 
 <div
 className="
    flex
-   gap-2">
+   gap-2
+   text-gray-300">
   <img src={xIcon}
   width=' 15px'
   height='20px'
-  className="
-    invert"
+  className="invert
+    "
   ></img>: {userInfo.twitter_username} 
-</div>
+</div>}
  
+ {!userInfo.blog?null: 
  <div
    className="
    flex
-   gap-2">
+   gap-2
+   text-gray-300">
     blogs :
     <a href={userInfo.blog}
     target="_blank"
@@ -181,26 +196,53 @@ className="
     invert"></img>
     </a>
   </div>
- 
+}
 
   </div>
-  <div className="sub2">
-    {
-    !userInfo.email?null:<p>{userInfo.email}</p>
+  <div className="sub2
+  text-gray-300
+  bg-gray-900
+   p-6 
+   space-y-3">
+   
+ {
+    !userInfo.email?null:
+    <div
+    className="flex gap-2
+    text-gray-300">
+      <img src={mail}
+      width="20px"
+      height="20px"
+      className="invert"></img>
+      {userInfo.email}
+      </div>
+  }
+
+  {
+    !userInfo.location?null:
+    <div
+    className="
+    flex
+    gap-2">
+      <img src={map}
+      className="
+      w-[20px]
+      h-[20px]
+      invert
+      "></img>
+      <div>{userInfo.location}</div>
+      </div>
   }
     {
-    !userInfo.location?null:<p>{userInfo.location}</p>
-  }
-    {
-    !userInfo.company?null:<p>{userInfo.company}</p>
+    !userInfo.company?null:<p>Company : {userInfo.company}</p>
   }
  {!userInfo.public_repos? null:
 <div
    className="
    flex
    gap-2">
-   Repos : {userInfo.public_repos}
-    <a href={userInfo.repos_url}
+   Repos :<span className="text-cyan-400"> {userInfo.public_repos}
+   </span> <a href={userInfo.repos_url}
     target="_blank"
     rel="noreferrer">
     <img
@@ -213,7 +255,8 @@ className="
   </div>
 }
   
- <div>Languages used:{
+ <div
+ className=""><p className="mb-4">Languages used:</p>{
   Object.keys(language).slice(0,3).map((lang)=>{
   const LanguageMap ={
     'C++':'cplusplus',
@@ -228,13 +271,27 @@ className="
   className="
   flex
   flex-row
-  gap-4
-  space-y-3">
+  gap-2
+  space-y-4
+  
+  ">
     <img src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${IconName}/${IconName}-original.svg`
     }width="20px"
      height="20px"
      onError={(e) => e.target.style.display='none'}></img>
-     <p>{lang}</p>
+     <div className="flex
+     flex-row
+     w-[170px]
+     max-w-[200px]
+    
+     mb-[10px]
+     border
+     justify-center
+     items-center
+     text-white
+     rounded-xl
+     bg-gradient-to-r from-[#bdc3c7] to-[#2c3e50]
+      ">{lang}</div>
   </div>
 
   )
@@ -248,7 +305,10 @@ className="
  </div>
  </div>
  </div>
- <div className="grid-2">
+ <div className="
+  
+ bg-gray-900 
+ p-6">
   <p>Recent works:</p>
    {recentWork.map((repo)=>{
     return(
