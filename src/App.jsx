@@ -154,7 +154,9 @@ flex-col
    text-gray-300
    ">
     github link :
-    <a href={userInfo.html_url}>
+    <a href={userInfo.html_url}
+    target="_blank"
+       rel="noreferrer">
     <img
     src={bgImage}
     width='20px'
@@ -222,6 +224,7 @@ className="
     !userInfo.location?null:
     <div
     className="
+    text-gray-300
     flex
     gap-2">
       <img src={map}
@@ -240,7 +243,8 @@ className="
 <div
    className="
    flex
-   gap-2">
+   gap-2
+   text-gray-400">
    Repos :<span className="text-cyan-400"> {userInfo.public_repos}
    </span> <a href={userInfo.repos_url}
     target="_blank"
@@ -256,7 +260,7 @@ className="
 }
   
  <div
- className=""><p className="mb-4">Languages used:</p>{
+ className=""><p className="mb-4 text-gray-400">Languages used:</p>{
   Object.keys(language).slice(0,3).map((lang)=>{
   const LanguageMap ={
     'C++':'cplusplus',
@@ -306,19 +310,31 @@ className="
  </div>
  </div>
  <div className="
-  
- bg-gray-900 
+ 
+ bg-gray-900
  p-6">
-  <p>Recent works:</p>
+  <p className="text-gray-400
+  
+  mb-[10px]">Recent works:</p>
    {recentWork.map((repo)=>{
     return(
-      <div key={repo.id}>
+      <div key={repo.id}
+      className="linear-gradient(135deg, #0a0e1a 0%, #0d1628 50%, #080c18 100%)"
+      >
        <div
-      className="
+      className="p-4
       flex
-      gap-3
-      space-y-3"
-       > <p>{repo.name}</p>
+      flex-col
+      justify-center
+      text-gray-300
+      mb-[10px]
+      border
+      
+     "
+       > 
+       <div className="flex 
+       gap-2
+       ">{repo.name}
        <a href={repo.html_url}
        target="_blank"
        rel="noreferrer">
@@ -327,15 +343,18 @@ className="
         width="20px"
         className="invert">
         </img></a></div>
-        <p>{repo.description}</p>
-        <p>forks:{repo.forks}</p>
-        <p>⭐{repo.stargazers_count}</p>
-        <a href={repo.homepage}><span
-        className="text-cyan-400 hover:text-cyan-300 
-        underline">
-          Live link</span></a>
-      
+        {repo.description?null:<p className="text-gray-400">{repo.description}</p>}
+        <div className="text-gray-400"> forks : <span className="text-cyan-400">{repo.forks}</span></div>
+        <div>⭐ <span className="text-cyan-400">{repo.stargazers_count}</span></div>
+       {repo.homepage && <a href={repo.homepage}
+      target="_blank" 
+      rel="noreferrer">
+        <span className="text-cyan-400 hover:text-cyan-300 
+        underline">Live Link</span></a>}
+    
       </div>
+      </div>
+      
     )
    })
 
