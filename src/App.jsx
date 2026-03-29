@@ -3,7 +3,10 @@ import {useState} from 'react';
 import xIcon from "./assets/twitter-x.svg"
 import linkIcon from "./assets/link.svg";
 import mail from "./assets/envelope.svg";
-import map from "./assets/map.svg"
+import map from "./assets/map.svg";
+import {useRef} from 'react';
+import html2canvas from "html2canvas-pro";
+import download from "./assets/download.svg";
 
 function App(){
   let [userInfo,setUserInfo]=useState(null);
@@ -50,6 +53,19 @@ console.log(repos);
   let[username,setUsername]=useState('');
   let[language,setLanguage] = useState({});
   let[recentWork,setRecentWork]=useState([]);
+
+
+const cardRef = useRef(null);
+ async function DownloadCard(){
+    const canvas = await html2canvas(cardRef.current,{
+    useCORS: true,
+    backgroundColor: '#111827',
+    logging: false,
+ });
+    const link=document.createElement('a');
+    link.download = `${userInfo.login}-gitcard.png`;
+    link.href=canvas.toDataURL();
+    link.click();}
   
   return(
   <div className="min-h-screen pb-16">
@@ -111,7 +127,8 @@ bg-cyan-500
 </div>
 
 {userInfo &&
-  <div className="max-w-2xl
+  <div
+  ref={cardRef} className="max-w-2xl
    mx-auto
    mt-8
   rounded-xl
@@ -357,21 +374,33 @@ bg-gray-900 p-6 border-t border-gray-700
         underline">Live Link</span></a>}
     
       </div>
+   
       </div>
+   
       
     )
    })
 
    }
-   </div>
+         
 
 
   
  
  
+  
+  
+
+</div>
   </div>
+  }
+  <div className="flex justify-center mt-4">
+        <button onClick={DownloadCard}>
+          <img src={download} className="w-[20px] h-[20px] invert" />
+        </button>
+      </div>
+  </div>
+  )
 }
- 
-  </div>
-  )}
-  export default App
+export default App
+
