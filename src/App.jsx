@@ -1,7 +1,7 @@
 import bgImage from "./assets/github.svg";
 import {useState} from 'react';
 import xIcon from "./assets/twitter-x.svg"
-import linkIcon from "./assets/link.svg";
+
 import mail from "./assets/envelope.svg";
 import map from "./assets/map.svg";
 import {useRef} from 'react';
@@ -60,7 +60,10 @@ const cardRef = useRef(null);
     const canvas = await html2canvas(cardRef.current,{
     useCORS: true,
     backgroundColor: '#111827',
+    borderRadius: '12px',
     logging: false,
+    scale: 2,
+
  });
     const link=document.createElement('a');
     link.download = `${userInfo.login}-gitcard.png`;
@@ -128,7 +131,8 @@ bg-cyan-500
 
 {userInfo &&
   <div
-  ref={cardRef} className="max-w-2xl
+  ref={cardRef} className="container-card
+  max-w-2xl
    mx-auto
    mt-8
   rounded-xl
@@ -209,12 +213,7 @@ className="
     <a href={userInfo.blog}
     target="_blank"
     rel="noreferrer">
-    <img
-    src={linkIcon}
-    width='20px'
-    height='20px'
-    className="
-    invert"></img>
+     🔗 
     </a>
   </div>
 }
@@ -269,12 +268,7 @@ className="
 
     target="_blank"
     rel="noreferrer">
-    <img
-    src={linkIcon}
-    width='20px'
-    height='20px'
-    className="
-    invert"></img>
+     🔗 
     </a>
   </div>
 }
@@ -359,11 +353,7 @@ bg-gray-900 p-6 border-t border-gray-700
        <a href={repo.html_url}
        target="_blank"
        rel="noreferrer">
-        <img src ={linkIcon}
-        height="20px"
-        width="20px"
-        className="invert">
-        </img></a></div>
+        🔗 </a></div>
         {!repo.description?null:<p className="text-gray-400">{repo.description}</p>}
         <div className="text-gray-400"> forks : <span className="text-cyan-400">{repo.forks}</span></div>
         <div>⭐ <span className="text-cyan-400">{repo.stargazers_count}</span></div>
@@ -394,12 +384,13 @@ bg-gray-900 p-6 border-t border-gray-700
 </div>
   </div>
   }
-  <div className="flex justify-center mt-4">
+ {userInfo &&<div className="flex justify-center mt-4">
         <button onClick={DownloadCard}>
           <img src={download} className="w-[20px] h-[20px] invert" />
         </button>
       </div>
-  </div>
+}
+</div>
   )
 }
 export default App
