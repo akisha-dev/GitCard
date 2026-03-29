@@ -14,4 +14,3 @@ React · Tailwind CSS · Vite · GitHub REST API · html2canvas-pro
 ## Live Demo
 [git-card-tau.vercel.app](https://git-card-tau.vercel.app)
 
-```
