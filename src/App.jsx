@@ -9,7 +9,12 @@ import html2canvas from "html2canvas-pro";
 import download from "./assets/download.svg";
 
 function App(){
+  
+  let[username,setUsername]=useState('');
+  let[language,setLanguage] = useState({});
+  let[recentWork,setRecentWork]=useState([]);
   let [userInfo,setUserInfo]=useState(null);
+  const cardRef = useRef(null);
 
   async function getInfo(){
   if(!username){
@@ -50,25 +55,29 @@ console.log(repos);
 
   
 
-  let[username,setUsername]=useState('');
-  let[language,setLanguage] = useState({});
-  let[recentWork,setRecentWork]=useState([]);
 
-
-const cardRef = useRef(null);
- async function DownloadCard(){
-    const canvas = await html2canvas(cardRef.current,{
+async function DownloadCard() {
+  if(!cardRef.current) return;
+  const canvas = await html2canvas(cardRef.current, {
     useCORS: true,
+    allowTaint: false, 
     backgroundColor: '#111827',
-    borderRadius: '12px',
-    logging: false,
     scale: 2,
+    logging: false,
+    width: cardRef.current.offsetWidth,
+    height: cardRef.current.offsetHeight,
+    scrollX: -window.scrollX,
+    scrollY: -window.scrollY,
+    windowWidth: document.documentElement.offsetWidth,
+    windowHeight: document.documentElement.offsetHeight
+  });
 
- });
-    const link=document.createElement('a');
-    link.download = `${userInfo.login}-gitcard.png`;
-    link.href=canvas.toDataURL();
-    link.click();}
+  const link = document.createElement('a');
+  link.download = `${userInfo.login}-gitcard.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+
+  }
   
   return(
   <div className="min-h-screen pb-16">
