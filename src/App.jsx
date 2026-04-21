@@ -15,42 +15,31 @@ function App(){
   let[recentWork,setRecentWork]=useState([]);
   let [userInfo,setUserInfo]=useState(null);
   const cardRef = useRef(null);
-
-  async function getInfo(){
-  if(!username){
+async function getInfo() {
+  if (!username) {
     alert('please enter a username!')
-  return;}
-
-let response=await fetch(`https://api.github.com/users/${username}`);
-let stats = await response.json();
-console.log(stats);
-if(!response.ok){
-  alert('User not found!');
-  return;
-}
-
-setUserInfo(stats);
-
+    return;
   }
-   async function getLanguage(repos){
-    let response1 = await fetch(`https://api.github.com/users/${username}/repos`);
-
-repos =await response1.json();
-console.log(repos);
+  const userResponse = await fetch(`https://api.github.com/users/${username}`);
+  if (!userResponse.ok) {
+    alert('User not found!');
+    return;
+  }
+  const userInfo = await userResponse.json();
+  setUserInfo( userInfo);
+  const repoResponse = await fetch(`https://api.github.com/users/${username}/repos`);
+  const repos = await repoResponse.json();
   let counts = {};
-  repos.forEach(element => {
-    if(element.language){
-      counts[element.language] = (counts[element.language] || 0) + 1
+  repos.forEach(repo => {
+    if (repo.language) {
+      counts[repo.language] = (counts[repo.language] || 0) + 1;
     }
-
-    
   });
   setLanguage(counts);
- let recentWork = repos.sort((a,b)=>
- new Date(b.updated_at)- new Date(a.updated_at)
- ).slice(0,3);
- setRecentWork(recentWork);
-  
+  const recentWork = repos
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    .slice(0, 3);
+  setRecentWork(recentWork);
 }
 
   
