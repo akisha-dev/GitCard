@@ -8,6 +8,16 @@ import {useRef} from 'react';
 import html2canvas from "html2canvas-pro";
 import download from "./assets/download.svg";
 
+
+
+
+  
+  const LanguageMap ={
+    'C++':'cplusplus',
+    'Jupyter Notebook':'jupyter',
+     'HTML':'html5',
+     'CSS':'css3',}
+  
 function App(){
   
   let[username,setUsername]=useState('');
@@ -123,7 +133,7 @@ bg-cyan-500
 ' onClick={()=>{
   console.log(username)
   getInfo();
-  getLanguage();
+ 
 }}>Search</button>
 </div>
 
@@ -272,15 +282,9 @@ className="
 }
   
  <div
- className=""><p className="mb-4 text-gray-400">Languages used:</p>{
-  Object.keys(language).slice(0,3).map((lang)=>{
-  const LanguageMap ={
-    'C++':'cplusplus',
-    'Jupyter Notebook':'jupyter',
-     'HTML':'html5',
-     'CSS':'css3',
-  }
-  const IconName = LanguageMap[lang] ||lang.toLowerCase();
+ className=""><p className="mb-4 text-gray-400">Languages used:</p>
+  {Object.keys(language).slice(0,3).map((lang)=>{
+ const IconName = LanguageMap[lang] ||lang.toLowerCase();
  return(
  <div
   key={lang}
@@ -311,12 +315,7 @@ className="
   </div>
 
   )
-  
-
-
 })
-
-
  }
  </div>
  </div>
